@@ -1,24 +1,4 @@
-# # kortu kalade yra listas.
-# # korta tai yra stringas susidedantis is 2 simboliu (skaicius ir rusis)
-# # hearts, spades, diamonds, clubs from 2 to 10 and j q k a
-#
-# # struktura kaip atskirti kortas
-# # sugalvoti kaip paemus viena korta is kalades, kad kaladeje tos kortos neliktu
-#
-#
-
-
-# hearts = ["h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "hj", "hq", "hk", "ha"]
-#
-# spades = ["s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "sj", "sq", "sk", "sa"]
-#
-# diamonds = ["d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10", "dj", "dq", "dk", "da"]
-#
-# clubs = ["c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "cj", "cq", "ck", "ca"]
-#
-# cards = [hearts, spades, diamonds, clubs]
-#
-# print(len(cards))        iprintino lista is 4 listu
+ # Hearts, Spades, Diamonds, Clubs from 2 to 10 and J Q K A
 
 import random
 
@@ -30,16 +10,41 @@ for rank in ranks:
     for type_ in types:
         card_deck.append(rank+type_)
 
-#ismaisytu kortu kalade
-#issitraukti random korta
+random.shuffle(card_deck)   #ismaiso kortu kalade
 
-random.shuffle(card_deck)
+# print(card_deck)
 
-print(card_deck)
+# random_card = random.choice(card_deck)      #isrenka random korta is kalades, bet ji ir lieka kaladeje
 
-random_card = random.choice(card_deck)
-
-print(random_card)
+# random_card = card_deck.pop()               #istraukia random korta is kalades ir jos kaladeje nebelieka
 
 
+#susikurti useri ir krupje
+# player listas ir dealer listas
+# zaidejas gauna 2 kortas, krupje 1
+#pasiskaityt apie komanda prompt (duoda galimybe useriui programos metu ivedineti teksa)
 
+dealer = []
+player = []
+
+dealer.append(card_deck.pop())
+print(f" Dealer Cards: {dealer}")
+
+player.append(card_deck.pop())
+player.append(card_deck.pop())
+print(f" Your Cards: {player}")
+
+print("")
+
+user_input = input("Type H for HIT, type S for STAND: ")
+
+if user_input != "H":
+    player.append(card_deck.pop())
+    # print(f" Your Cards: {player}")
+    # print(f" Dealer Cards: {dealer}")
+elif user_input() == "S":
+    dealer.append(card_deck.pop())
+    # print(f" Your Cards: {player}")
+    # print(f" Dealer Cards: {dealer}")
+else:
+    user_input = input("Wrong value! Type H for HIT, type S for STAND: ")
