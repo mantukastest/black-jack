@@ -38,13 +38,18 @@ print("")
 
 user_input = input("Type H for HIT, type S for STAND: ")
 
-if user_input != "H":
+if user_input == "H":
     player.append(card_deck.pop())
-    # print(f" Your Cards: {player}")
-    # print(f" Dealer Cards: {dealer}")
-elif user_input() == "S":
+    print(f" Your Cards: {player}")
+    print(f" Dealer Cards: {dealer}")
+elif user_input == "S":
     dealer.append(card_deck.pop())
-    # print(f" Your Cards: {player}")
-    # print(f" Dealer Cards: {dealer}")
+    print(f" Your Cards: {player}")
+    print(f" Dealer Cards: {dealer}")
 else:
     user_input = input("Wrong value! Type H for HIT, type S for STAND: ")
+
+# Pasirasyt funkcija, kai printini dealer cards ir player cards kad grazintu kiek tasku turi
+# kita funkcija turi patikrinti ar player dar nepralose (taip kaip siandien mokemes)
+# turi atsirasti loopas, kuris suktusi iki zaidimo pabaigos, useris gali rinktis kortas kol pas ji nedaugiau nei 21
+# kai useris sustoja dealeris turi rinkti toliau kortas
