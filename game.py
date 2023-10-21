@@ -66,3 +66,7 @@ elif player_points < dealer_points:
     print("GAME OVER")
 else:
     print("YOU WON!")
+
+
+# Blogai skaiciuoja su skaicium 10!
+# Po zinutes Wrong Value neberodo kortu, tik value ir ar laimejai
