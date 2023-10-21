@@ -70,3 +70,4 @@ else:
 
 # Blogai skaiciuoja su skaicium 10!
 # Po zinutes Wrong Value neberodo kortu, tik value ir ar laimejai
+# reiktu skaiciavimo funkcija prideti ir pirmam kortu isdalinimui, pries zaidejui pasirenkant ka toliau darytu.
