@@ -12,44 +12,57 @@ for rank in ranks:
 
 random.shuffle(card_deck)   #ismaiso kortu kalade
 
-# print(card_deck)
+dealer_cards = []
+player_cards = []
 
-# random_card = random.choice(card_deck)      #isrenka random korta is kalades, bet ji ir lieka kaladeje
+dealer_cards.append(card_deck.pop())
+print(f" Dealer Cards: {dealer_cards}")
 
-# random_card = card_deck.pop()               #istraukia random korta is kalades ir jos kaladeje nebelieka
-
-
-#susikurti useri ir krupje
-# player listas ir dealer listas
-# zaidejas gauna 2 kortas, krupje 1
-#pasiskaityt apie komanda prompt (duoda galimybe useriui programos metu ivedineti teksa)
-
-dealer = []
-player = []
-
-dealer.append(card_deck.pop())
-print(f" Dealer Cards: {dealer}")
-
-player.append(card_deck.pop())
-player.append(card_deck.pop())
-print(f" Your Cards: {player}")
+player_cards.append(card_deck.pop())
+player_cards.append(card_deck.pop())
+print(f" Your Cards: {player_cards}")
 
 print("")
 
 user_input = input("Type H for HIT, type S for STAND: ")
 
 if user_input == "H":
-    player.append(card_deck.pop())
-    print(f" Your Cards: {player}")
-    print(f" Dealer Cards: {dealer}")
+    player_cards.append(card_deck.pop())
+    dealer_cards.append(card_deck.pop())
+    print(f" Dealer Cards: {dealer_cards}")
+    print(f" Your Cards: {player_cards}")
 elif user_input == "S":
-    dealer.append(card_deck.pop())
-    print(f" Your Cards: {player}")
-    print(f" Dealer Cards: {dealer}")
+    dealer_cards.append(card_deck.pop())
+    print(f" Dealer Cards: {dealer_cards}")
+    print(f" Your Cards: {player_cards}")
 else:
-    user_input = input("Wrong value! Type H for HIT, type S for STAND: ")
+    user_input = input("WRONG VALUE! Type H for HIT, type S for STAND: ")
 
 # Pasirasyt funkcija, kai printini dealer cards ir player cards kad grazintu kiek tasku turi
 # kita funkcija turi patikrinti ar player dar nepralose (taip kaip siandien mokemes)
 # turi atsirasti loopas, kuris suktusi iki zaidimo pabaigos, useris gali rinktis kortas kol pas ji nedaugiau nei 21
 # kai useris sustoja dealeris turi rinkti toliau kortas
+
+
+card_values = {"2": 2, "3": 3, "4": 4, "5": 5, "6":6, "7": 7, "8":8, "9": 9, "J": 10, "Q": 10, "K": 10, "A": 11}
+
+def calculate_points(cards):
+    points = 0
+    for card in cards:
+        rank = card[:-1]  # Extract the rank of the card (e.g., '2' from '2H')
+        points += card_values.get(rank, 0)  # Use get() to handle cases like 'A' where the value can be 11 or 1
+    return points
+
+dealer_points = calculate_points(dealer_cards)
+player_points = calculate_points(player_cards)
+
+
+print(f"Dealer Points: {dealer_points}")
+print(f"Player Points: {player_points}")
+
+if player_points > 21:
+    print("GAME OVER")
+elif player_points < dealer_points:
+    print("GAME OVER")
+else:
+    print("YOU WON!")
