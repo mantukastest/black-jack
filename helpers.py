@@ -1,6 +1,5 @@
 from typing import List
 
-
 def calculate_points(cards: List[str]) -> int:
     """
     Calculate points
