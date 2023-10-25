@@ -1,73 +1,49 @@
- # Hearts, Spades, Diamonds, Clubs from 2 to 10 and J Q K A
-
+# Hearts, Spades, Diamonds, Clubs from 2 to 10 and J Q K A
 import random
+from helpers import calculate_points, create_deck, display_results
 
-ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-types = ["H", "S", "D", "C"]
-card_deck = []
+if __name__ == '__main__':
 
-for rank in ranks:
-    for type_ in types:
-        card_deck.append(rank+type_)
+    card_deck = create_deck()
+    random.shuffle(card_deck)
 
-random.shuffle(card_deck)   #ismaiso kortu kalade
+    dealer_cards = []
+    player_cards = []
 
-dealer_cards = []
-player_cards = []
-
-dealer_cards.append(card_deck.pop())
-print(f" Dealer Cards: {dealer_cards}")
-
-player_cards.append(card_deck.pop())
-player_cards.append(card_deck.pop())
-print(f" Your Cards: {player_cards}")
-
-print("")
-
-user_input = input("Type H for HIT, type S for STAND: ")
-
-if user_input == "H":
-    player_cards.append(card_deck.pop())
     dealer_cards.append(card_deck.pop())
-    print(f" Dealer Cards: {dealer_cards}")
-    print(f" Your Cards: {player_cards}")
-elif user_input == "S":
-    dealer_cards.append(card_deck.pop())
-    print(f" Dealer Cards: {dealer_cards}")
-    print(f" Your Cards: {player_cards}")
-else:
-    user_input = input("WRONG VALUE! Type H for HIT, type S for STAND: ")
+    display_results(dealer_cards, "Dealer")
 
-# Pasirasyt funkcija, kai printini dealer cards ir player cards kad grazintu kiek tasku turi
-# kita funkcija turi patikrinti ar player dar nepralose (taip kaip siandien mokemes)
-# turi atsirasti loopas, kuris suktusi iki zaidimo pabaigos, useris gali rinktis kortas kol pas ji nedaugiau nei 21
-# kai useris sustoja dealeris turi rinkti toliau kortas
+    for _ in range(2):  # kai nereikalinga verte ja issaugome kaip "_"
+        player_cards.append(card_deck.pop())
+    display_results(player_cards, "Player")
 
+    while True:
+        user_input = input("Type H for HIT, type S for STAND: ")
 
-card_values = {"2": 2, "3": 3, "4": 4, "5": 5, "6":6, "7": 7, "8":8, "9": 9, "J": 10, "Q": 10, "K": 10, "A": 11}
+        if user_input == "H":
+            player_cards.append(card_deck.pop())
+            display_results(player_cards, "Player")
+            if calculate_points(player_cards) > 21:
+                print("Dealer WON!")
+                quit()
 
-def calculate_points(cards):
-    points = 0
-    for card in cards:
-        rank = card[:-1]  # Extract the rank of the card (e.g., '2' from '2H')
-        points += card_values.get(rank, 0)  # Use get() to handle cases like 'A' where the value can be 11 or 1
-    return points
+        elif user_input == "S":
+            break
+        else:
+            print("WRONG VALUE!")
+            continue
 
-dealer_points = calculate_points(dealer_cards)
-player_points = calculate_points(player_cards)
+    while calculate_points(dealer_cards) <= 16:
+        dealer_cards.append(card_deck.pop())
+        display_results(dealer_cards, "Dealer")
 
-
-print(f"Dealer Points: {dealer_points}")
-print(f"Player Points: {player_points}")
-
-if player_points > 21:
-    print("GAME OVER")
-elif player_points < dealer_points:
-    print("GAME OVER")
-else:
-    print("YOU WON!")
+    if calculate_points(dealer_cards) > 21:
+        print("You WON!")
+    elif calculate_points(player_cards) > calculate_points(dealer_cards):
+        print("You WON!")
+    elif calculate_points(player_cards) < calculate_points(dealer_cards):
+        print("Dealer WON!")
+    else:
+        print("Draw")
 
 
-# Blogai skaiciuoja su skaicium 10!
-# Po zinutes Wrong Value neberodo kortu, tik value ir ar laimejai
-# reiktu skaiciavimo funkcija prideti ir pirmam kortu isdalinimui, pries zaidejui pasirenkant ka toliau darytu.
